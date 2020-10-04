@@ -1,0 +1,166 @@
+1)Type of EC2 & use cases:-
+Ans:- General Purpose: The most popular; used for web servers, development environments, etc. Ex:-A1,M5,T3/T3A
+      Compute Optimized: Good for compute-intensive applications such as some scientific modeling or high-performance web servers.Ex:-C5
+      Memory Optimized: Used for anything that needs memory-intensive applications, such as real-time big data analytics, or running Hadoop or Spark.Eg:R5/R5a,X1/x1e
+      Accelerated Computing: Include additional hardware (GPUs, FPGAs) to provide massive amounts of parallel processing for tasks such as graphics processing.Eg:-P3,G3,F1
+      Storage Optimized: Ideal for tasks that require huge amounts of storage, specifically with sequential read-writes, such as log processing. Eg:-H1,D1,I1
+
+2) What are purchasing option available and difference between on demand and reserved
+Ans:-AWS provides four main EC2 instance purchasing options. They are: On-Demand, Reserved Instances, and Spot Instances, with the added option of Dedicated Hosts. 
+
+On-Demand Instances:-
+This is the most basic, least sophisticated way to provision Amazon EC2 instances. 
+It’s the pay-as-you-go model. On-demand EC2 instance purchasing is also the most expensive way to provision resources. 
+If you’re running an EC2 workload at scale, managing all of your instance provisioning on an on-demand basis would get quite 
+
+Reserved Instances:-
+Reserved Instance (RI) purchases are one of the easiest ways to start reducing cloud spends. 
+When you buy an RI, you are ‘reserving’ that instance for a one to three year period. 
+In return for that long-term commitment, AWS gives a hefty discount of up to 70% off compared to the on-demand prices. 
+Professional service providers may find RI purchasing to be the most economical option for increasing profits while adding value for their customers. 
+
+3) Dedicated instance vs dedicated host
+Ans:-An important difference between a Dedicated Host and a Dedicated Instance is that a Dedicated Host gives you additional visibility and control over how instances are placed on a physical server, 
+and you can consistently deploy your instances to the same physical server over time.
+
+4)What is EBS. EBS vs instance store & Limitaion of instance store per data
+
+Amazon Elastic Block Store (EBS) is an easy to use, high performance block storage service designed for use with Amazon Elastic Compute Cloud (EC2) for both throughput and transaction intensive workloads at any scale. 
+A broad range of workloads, such as relational and non-relational databases, enterprise applications, containerized applications, big data analytics engines, file systems, and media workflows are widely deployed on Amazon EBS.
+Benifit:-Performance for any workload,Easy to Use,Highly available and durable,Virtually unlimited scale,Cost-effective,Secure
+         
+EBS volume:-
+EBS volume is network attached drive which results in slow performance but data is persistent meaning even if you reboot the instance data will be there.
+An “EBS-backed” instance means that the root device for an instance launched from the AMI is an EBS volume created from an EBS snapshot
+An EBS volume behaves like a raw, unformatted, external block device that can be attached to a single instance and are not physically attached to the Instance host computer (more like a network attached storage).
+Volume persists independently from the running life of an instance. After an EBS volume is attached to an instance, you can use it like any other physical hard drive.
+EBS volume can be detached from one instance and attached to another instance.
+EBS volumes can be created as encrypted volumes using the EBS encryption feature.
+EBS is block store which is separately attached to EC2. Also its design such a way that it will be replicated within its availability zone so it provides high availability and durability.
+And the additional advantage of it is, you can have back-ups for EBS by creating Snapshots which is not possible instance store. So that whenever you want to retrieve the data you can just create the EBS volume from the snapshot.
+Key points for EBS backed Instance
+Boot time is very fast usually less then a min
+Can be selected as Root Volume and attached as additional volumes
+EBS backed Instances can be of maximum 16TiB volume size depending upon the OS
+EBS volume can be attached as additional volumes when the Instance is launched and even when the Instance is up and running
+When EBS-backed instance is in a stopped state, various instance– and volume-related tasks can be done for e.g. you can modify the properties of the instance, you can change the size of your instance or update the kernel it is using, or you can attach your root volume to a different running instance for debugging or any other purpose
+EBS volumes are AZ scoped and tied to a single AZ in which created
+EBS volumes are automatically replicated within that zone to prevent data loss due to failure of any single hardware component
+AMI creation is easy using a Single command
+EBS backed Instances can be upgraded for instance type, Kernel, RAM disk and user data
+Data on the EBS volume is LOST:
+1. For EBS Root volume, if Delete on termination flag is enabled (enabled, by default)
+2. For attached EBS volumes, if the Delete on termination flag is enabled (disabled, by default).
+Data on EBS volume is NOT LOST in following scenarios:
+1. Reboot on the Instance
+2. Stopping an EBS-backed instance
+3. Termination of the Instance for the additional EBS volumes. Additional EBS volumes are detached with their data intact
+Performance
+EBS-backed AMIs launch faster than EC2 instance store-backed AMIs.
+When an EC2 instance store-backed AMI is launched, all the parts have to be retrieved from S3 before the instance is available.
+With an EBS-backed AMI is launched, parts are lazily loaded and only the parts required to boot the instance need to be retrieved from the snapshot before the instance is available.
+However, the performance of an instance that uses an EBS volume for its root device is slower for a short time while the remaining parts are retrieved from the snapshot and loaded into the volume.
+When you stop and restart the instance, it launches quickly, because the state is stored in an EBS volume.
+
+Instance Store:-
+Instance store instance store provides temporary block-level storage for your instance. This storage is located on disks that are physically attached to the host computer.
+Instance store backed instance is an EC2 instance using an Instance store as root device volume created from a template stored in S3.
+An instance store is ephemeral storage that provides temporary block level storage for your instance. Instance store is ideal for temporary storage like buffers, caches, and other temporary content.
+Instance store volumes accesses storage from disks that are physically attached to the host computer.
+When an Instance stored instance is launched, the image that is used to boot the instance is copied to the root volume (typically sda1).
+Instance store provides temporary block-level storage for instances.
+Data on an instance store volume persists only during the life of the associated instance; if an instance is stopped or terminated, any data on instance store volumes is lost.
+Key points for Instance store backed Instance
+Boot time is slower then EBS backed volumes and usually less then 5 min
+Can be selected as Root Volume and attached as additional volumes
+Instance store backed Instances can be of maximum 10GiB volume size
+Instance store volume can be attached as additional volumes only when the instance is being launched and cannot be attached once the Instance is up and running
+The data in an instance store persists only during the lifetime of its associated instance. If an instance reboots (intentionally or unintentionally), data in the instance store persists
+Instance store backed Instances cannot be stopped, as when stopped and started AWS does not guarantee the instance would be launched in the same host and hence the data is lost
+AMI creation requires usage on AMI tools and needs to be executed from within the running instance
+Instance store backed Instances cannot be upgraded
+For EC2 instance store-backed instances AWS recommends to:
+1. Distribute the data on the instance stores across multiple AZs
+2. Back up critical data from the instance store volumes to persistent storage on a regular basis
+Data on Instance store volume is LOST in following scenarios :
+1. Underlying disk drive fails
+2. Instance stops
+3. Instance terminates
+Therefore, do not rely on instance store for valuable, long-term data.
+
+5)Types of EBS volume
+An Amazon EBS volume is a durable, block-level storage device that you can attach to your instances. 
+After you attach a volume to an instance, you can use it as you would use a physical hard drive. EBS volumes are flexible. 
+For current-generation volumes attached to current-generation instance types, you can dynamically increase size, modify the provisioned IOPS capacity, 
+and change volume type on live production volumes.
+A))General Purpose SSD (gp2):-General purpose SSD volume that balances price and performance for a wide variety of workloads (1 GiB - 16 TiB)
+Use cases:- Recommended for most workloads
+            System boot volumes
+            Virtual desktops
+            Low-latency interactive apps
+            Development and test environments
+
+B))Provisioned IOPS SSD (io1):-Highest-performance SSD volume for mission-critical low-latency or high-throughput workloads(4 GiB - 16 TiB)
+Use cases:-Critical business applications that require sustained IOPS performance, or more than 16,000 IOPS or 250 MiB/s of throughput per volume
+Large database workloads, such as:MongoDB,Cassandra,Microsoft SQL Server,MySQL,PostgreSQL,Oracle
+
+C))Throughput Optimized HDD (st1):-Low-cost HDD volume designed for frequently accessed, throughput-intensive workloads(500 GiB - 16 TiB)
+Use cases:-Streaming workloads requiring consistent, fast throughput at a low price,Big data,Data warehouses,Log processing,Cannot be a boot volume
+
+D))Cold HDD (sc1):-Lowest cost HDD volume designed for less frequently accessed workloads(500 GiB - 16 TiB)
+Use cases:-Throughput-oriented storage for large volumes of data that is infrequently accessed
+Scenarios where the lowest storage cost is important
+Cannot be a boot volume
+
+6) Max Volume size that can be attached with EBS
+Ans:-16 TiB
+EBS currently supports a maximum volume size of 16 TiB. This means that you can create an EBS volume as large as 16 TiB, 
+but whether the OS recognizes all of that capacity depends on its own design characteristics and on how the volume is partitioned.
+
+7)Throughput vs IOPS
+Ans:-IOPS - Number of read write operations mostly useful for OLTP transactions used in AWS for DBs like Cassandra.
+     Throughput - Is the number of bit transferred per sec. i.e.data transferred per sec. Mainly a unit for high data transfer applications like big data hadoop,kafka streaming
+IOPS measures the number of read and write operations per second, 
+while throughput measures the number of bits read or written per second.
+
+8) How to encrypt root volume EBS
+Logging in to the Amazon Web Services Console
+Create an EC2 instance with an additional EBS
+Create a new EBS volume
+Attach and Detach an EBS volume
+Connecting to a Remote Shell Using an SSH Connection
+Create a filesystem on an EBS Volume
+Create an EBS snapshot
+
+9)What happens when EC2 instance stopped vs shutdown vs terminate
+If you stop an instance, root volume is preserved (EBS volume is not deleted) and other devices that are attached to the instance keep on running.
+Once the Instance State shows “stopped,”  you have the ability to set the conditions you would like for it. This is also the time when you may change the instance type. Whether to scale up or down is entirely up to you.
+When it’s at stopped mode, you can fix some system issues and do some updates, change the user data, RAM disk and kernel. These attributes may only be changed if the instance has been stopped.
+
+If you terminate an instance The root and other devices attached to the instance when launched will all be deleted automatically. 
+By default, the root volume is deleted following the termination.
+You cannot modify or connect to a terminated instance.
+
+10) What are the 2/2 status check in EC2
+Under AWS management console, launch instance and status checks shows 2/2 checks passed. 2. If status checks shows status 2/2 checked passed, 
+then the instance is in healthy state. 
+AWS EC2 provides status checks that detect the problems with the underlying EC2 system used by the individual system.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,99 @@
+1)Advantage of cloud over traditional infra
+Ans:-Cloud hosting offers an enhanced level of flexibility and scalability in comparison to traditional data centres. The on-demand virtual space of cloud computing has unlimited storage space and more server resources. ... 
+With traditional IT infrastructure, you can only use the resources that are already available to you.
+
+2)Deployement Models 
+Ans:-There are four cloud deployment models: public, private, community, and hybrid. 
+Each deployment model is defined according to where the infrastructure for the environment is located. 
+There are three main cloud service models: Software as a Service, Platform as a Service, and Infrastructure as a Service.
+
+3)Service models
+Ans:-Different Types Of Cloud Computing Service Models
+A)))-Infrastructure As A Service (IAAS)
+Infrastructure as a Service (IAAS) is a form of cloud computing that provides virtualized computing resources over 
+the internet. In an IAAS model, a third party provider hosts hardware, software, servers, storage and other infrastructure
+components on the behalf of its users. IAAS providers also host users’ applications and handle tasks including system maintenance backup and resiliency planning.
+B)))-Platform As A Service (PAAS)
+Platform as a Service (PAAS) is a cloud computing model that delivers applications over the internet. 
+In a PAAS model, a cloud provider delivers hardware and software tools, usually those needed for application development, 
+to its users as a service. A PAAS provider hosts the hardware and software on its own infrastructure. As a result, 
+PAAS frees users from having to install in-house hardware and software to develop or run a new application.
+
+C)))Software As A Service (SAAS)
+Software as a Service(SAAS) is a software distribution model in which applications are hosted by a vendor or service provider and made available to customers 
+over a network, typically the Internet. SAAS has become an increasingly prevalent delivery model as underlying 
+technologies that support Web services and service-oriented architecture (SOA) mature and new development approaches, 
+such as Ajax, become popular. SAAS is closely related to the ASP (Application service provider) 
+and on-demand computing software delivery models.
+
+4) Drawback of cloud
+Ans:#1. Risk of data confidentiality. There is always a risk that user data can be accessed by other people. ...
+#2. Depends on internet connection. ...
+#3. The level of security. ...
+#4. Compliance. ...
+#5. Vulnerable in the event of an attack. ...
+#6. Data Mobility. ...
+#7. Technical problem. ...
+#8. Low Connection.
+
+5)Global services of AWS
+Ans:-AWS offers a broad set of global cloud-based products including compute, storage, database, analytics, 
+networking, machine learning and AI, mobile, developer tools, IoT, security, enterprise applications, and much more.
+
+6) What is IAM Difference between root account and admin account.
+Ans:-AWS Identity and Access Management (IAM) enables you to manage access to AWS services and resources securely. 
+Using IAM, you can create and manage AWS users and groups, and use permissions to allow and deny their access 
+to AWS resources. IAM is a feature of your AWS account offered at no additional charge.
+
+There are two different types of users in AWS. You are either the account owner (root user) or you are an AWS Identity 
+and Access Management (IAM) user. The root user is created when the AWS account is created and IAM users are created by 
+the root user or an IAM administrator for the account.
+
+7)Difference between Roles and policies.
+
+Ans:-IAM Roles are defined as a set of permissions that grant access to actions and resources in AWS. 
+An IAM Role can be used by or assumed by IAM User accounts or by services within AWS, and can give access to Users from another account altogether. 
+IAM Roles are similar to wearing different hats in that they temporarily let an IAM User or a service get permissions to do things they would not normally get to do.  These permissions are attached to the Role itself, and are conveyed to anyone or anything that assumes the role. Also, Roles have credentials that can be used to authenticate the Role identity.
+You can assign either a pre-built policy or create a custom policy. A policy is something that will be assigned to a role. 
+Admins of the customer environment create an IAM Policy with a constrained set of access, and then assigns that policy to 
+a new Role, specifically assigned to the provider’s Account ID and External ID.  When done, 
+the resulting IAM Role is given a specific Amazon Resource Name (ARN), which is a unique string that identifies the role.
+
+10) What is a fedrated User in AWS & how to do authentication of fedrated user
+
+Ans:-Federated users (external identities) are users you manage outside of AWS in your corporate directory, 
+but to whom you grant access to your AWS account using temporary security credentials. They differ from IAM users, 
+which are created and maintained in your AWS account.
+
+An IAM role is an AWS identity with permission policies that determine what the identity can and cannot do in AWS. 
+In a federated authentication scenario, users (as defined in the IdP) assume an AWS role during the sign-in process. 
+A role should be defined for each access delineation that you wish to define.
+
+12)How to enable cross account access & what is trusted account and trust in account
+
+Ans:-Navigate to Infrastructure > Cloud, click on create.
+Provide the desired name of the cloud, and select Amazon Web Services as the Cloud Infrastructure Type, and click on Next.
+Enable the Use Cross-Account Assume Role checkbox, available under the AWS User Credentials section.
+
+You can use trusted access to enable an AWS service that you specify, called the trusted service, to perform tasks in your organization 
+and its accounts on your behalf. ... This enables the trusted service to perform any required initialization or 
+create any required resources.
+
+You can use IAM roles to delegate access to your AWS resources. With IAM roles, you can establish trust relationships 
+between your trusting account and other AWS trusted accounts. The trusting account owns the resource to be accessed and 
+the trusted account contains the users who need access to the resource.
+
+13) How to set password policies to user account
+
+Sign in to the AWS Management Console and open the IAM console at https://console.aws.amazon.com/iam/ .
+...
+Setting a Password Policy (Console)
+In the navigation pane, click Account Settings.
+In the Password Policy section, select the options you want to apply to your password policy.
+Click Apply Password Policy.
+
+14)How many users , groups & roles can created by default
+
+Ans-You are limited to 1,000 IAM roles under your AWS account. If you need more roles, submit the IAM limit increase request form with your use case
+
+You can add up to 10 users at one time. The number and size of IAM resources in an AWS account are limited.

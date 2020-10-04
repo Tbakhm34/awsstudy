@@ -1,0 +1,132 @@
+IAM :
+1) This service used to manage users & groups in AWS.
+2) We can create roles
+3) we can create custom policies.
+4) policies are written in "JSON" 
+================================================
+What is Policy?
+1) To give the permision to the users
+2) policy contains below parameters
+    a) effect : Allow/ Deny
+    b) action : Each and every service is having list
+	        of different Action. Action alway performed on
+		 "Resource"
+		 
+		 Ex : Below are some of Ec2 service Actions
+             i) RunInstances
+             ii) StopInstances
+             iii) TerminateInstances
+             iv) AttchVolumes
+             v) CraeteLoadBalancer
+             vi) CreateVolume
+             vii) CreateSnapshot
+             etc.			 
+	c) resource:  Where we can perform defined action.
+	             Resource is alway menction in "ARN"
+		ARN Format:
+         arn:aws:service_name:regioncode:accountid: resorce
+   ex : 
+      1) EC2 instance ARN format , INstance is in MUmbai
+         Region.
+		 
+		 arn:aws:ec2:ap_sounth_1:67392642:instance/i-32986349
+	  2) Below is arn of "sheshi" IAM user of account 67392642
+
+          arn:aws:iam::67392642:user/sheshi	  
+
+	d) condition : its a optional parameter. we can write
+	              condition in AWS policies.
+				  
+	e) Principal: 
+	f) Version
+    g) Statement
+	
+3) There are two types of policies in AWS
+     a) Userbased policies: 
+	    This type of policies we can assign directly 
+		to IAM users within a account.
+		There are two type of user based policies
+		 i) AWS managed policies : This are predefined
+		    policied given by AWS, We cant edit this 
+			type of policies.
+		 
+		 ii) customer based policies: this type of
+		    policies create by you, as per requirment.
+			We can edit this type of policies any time.
+		
+	 
+     b) resource based policies:	
+            We can assign this type of policies 
+     directly on the resource itself.		
+3) policies can be assigned to users or roles.	
+
+=========================================================
+Roles:
+=====
+1) Roles is used allow the other account users to access
+    resources in source account.
+2) Roles can be assigned to EC2 instances also.
+
+=======================================================
+How to create roles to allow the another account  user to access the 
+  resources in source account.
+
+Ex :  Allow account2 user to access account1 EC2 
+      resources.
+Account1 Tasks:
+==============
+1) Create a Another AWS account role and 
+   assign EC2 full permision policy to it.
+Note:
+ When we create "Another AWS account" access role
+by default "Trusted policy" will be created.
+
+Account2 Tasks:
+================
+1) Create Any "IAM" user
+2) Create a custom policy to consume other account role.
+ a) To consume other account resources we will use
+   "sts (Secure Token Service)" service.
+ b) To consume other account role we will use "AssumeRole"
+   action of "STS" service.
+3) Assign step2 to policy to the step1 user.
+4) Login into Step1 user 
+5) switch to the role.
+
+Note : By default every thing is denied to IAM user.
+
+
+Q) 
+1) Create IAM user and assign Admin permision to him.
+2) Create IAM user and assign read only EC2 permisions.
+3) Create IAM user allow him to create new IAM users.
+4) Create custom policies to allow the IAM user to 
+do the admin activity between 1-mar-2017 to 31-mar-2018.
+5) Write a custom policy to allow EC2 full access
+   in Mumbai region "ap-south-1a" AZ. assign 
+6) Create custom policy to allow full ec2,
+   except all ELB actions.   
+	
+==============================================================
+1) Create A policy which restrict user to launch Ec2 instances in Mumbai region
+
+2) Create A policy which Deny Delete objects from Mumbai region S3 buckets.
+
+3) User is allowed to perform all ec2 action in only in VPC123.
+
+4) Create A policy which Deny to create elb in  VPC123.
+
+5) Create A policy which allow to launch only t2.micro,t2.nano instances
+
+6) Create A policy which deny to change iam role of ec2 instance (instanceid i-234456)
+7) Create A policy which deny to create route tables in VPC123
+
+8) Create A policy which deny to detach IGW from vpc "VPC123"
+
+9) Create a policy which will not allow "sheshi" i am user to upload the objects
+   into s3 bucket i.e "intelliq-mum".
+
+10) Create A policy which allow all ec2 actions except creating snapshots in 
+    mumbai region
+
+

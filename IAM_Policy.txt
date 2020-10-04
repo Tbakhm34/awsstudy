@@ -1,0 +1,317 @@
+1) Create a policy which will deny 
+terminate ec2 instances.
+and policy allow all other ec2 action. 
+
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Action": "ec2:*",
+            "Resource": "*"
+        },
+		 {
+            "Effect": "Deny",
+            "Action": "ec2:TerminateInstances",
+            "Resource": "*"
+        }
+		
+    ]
+}
+
+2)Create a policy which will deny 
+terminate ec2 instances and creating new key pairs.
+and policy allow all other ec2 action. 
+
+
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Action": "ec2:*",
+            "Resource": "*"
+        },
+		 {
+            "Effect": "Deny",
+            "Action": ["ec2:TerminateInstances",
+			"ec2:CreateKeyPair"
+			]
+            "Resource": "*"
+        }
+		
+    ]
+}
+
+3) Write a policy which will deny to terminate "i-345672"
+ec2 instance which located in mumbai. and all other 
+ ec2 action are allowed.
+ 
+ {
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Action": "ec2:*",
+            "Resource": "*"
+        },
+		{
+            "Effect": "Deny",
+            "Action": "ec2:TerminateInstance",
+            "Resource": "arn:aws:ec2:ap-south-1:345627890:instance/i-345672"
+        }
+		
+    ]
+}
+
+4) Write a policy will allow all ec2 related action
+   only in mumbai region.
+   
+   {
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Action": "ec2:*",
+            "Resource": "*",
+			"Condition":
+			{
+				"StringEquals":{"ec2:region":"ap-south-1"}
+			}
+        }
+    ]
+}
+
+5) Write a policy which will deny Deleting VPC
+   and allow all other EC2 related actions.
+
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Action": "ec2:*",
+            "Resource": "*",
+			
+        },
+		 {
+            "Effect": "Deny",
+            "Action": "ec2:DeleteVpc",
+            "Resource": "*",
+			
+        },
+    ]
+}
+
+6) Write a policy which will deny replace route table 
+   and allow all other EC2 related actions.
+
+   {
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Action": "ec2:*",
+            "Resource": "*",
+			
+        },
+		 {
+            "Effect": "Deny",
+            "Action": "ec2:ReplaceRouteTableAssociation",
+            "Resource": "*",
+			
+        },
+    ]
+}
+  
+7) Write a policy which will deny edit route table.  
+
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Deny",
+            "Action": ["ec2:DeleteRoute",
+			           "ec2:CreateRoute",
+                       "ec2:ReplaceRoute"]					   ]
+            "Resource": "*",
+			
+        }
+    ]
+}
+
+8)Write policy which will deny to upload objects into 
+   s3 bucket and allow all other s3 and ec2 related
+   actions.
+   {
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Action": ["ec2:*",
+			           "s3:*"]				   ]
+            "Resource": "*",
+        },
+		{
+            "Effect": "Deny",
+            "Action": "s3:PutObject",				   
+            "Resource": "*",
+        },
+    ]
+}
+
+9) Write a policy which will deny to attach/dettach 
+new instances  to elb.
+   {
+    "Version": "2012-10-17",
+    "Statement": [
+      		{
+            "Effect": "Deny",
+            "Action": 
+			["elb:DeregisterInstancesFromLoadBalancer",
+			"elb:RegisterInstancesWithLoadBalancer"
+			],
+            "Resource": "*",
+        },
+    ]
+}
+
+10) Write a policy which will deny edit of ASG
+autoscaling:
+
+  {
+    "Version": "2012-10-17",
+    "Statement": [
+      		{
+            "Effect": "Deny",
+            "Action": 
+			["autoscaling:AttachInstances",
+			"autoscaling:DetachInstances"
+			],
+            "Resource": "*",
+        },
+    ]
+}
+
+11) Write a policy which will deny to create s3 buckets
+   in mumbai region and allow same in all other
+   regions.
+   
+   {
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Action":  "s3:*"				   
+            "Resource": "*",
+        },
+		{
+            "Effect": "Deny",
+            "Action":  "s3:CreateBucket"				   
+            "Resource": "*",
+			"Condition":
+			{
+				"StringEquals":{"aws:region":"ap-south-1"}
+			}
+			
+			
+        }
+	}	
+ 
+ 
+12) Write a policy which will allow full ec2 permissionsonly
+only  in mumbai region. 
+
+ {
+    "Version": "2012-10-17",
+    "Statement": [
+        		{
+            "Effect": "Deny",
+            "Action":  "ec2:*"				   
+            "Resource": "*",
+			"Condition":
+			{
+				"StringEquals":{"aws:region":"ap-south-1"}
+			}
+			
+			
+        }
+	}
+
+13) Write a policy which allow to launch only 
+t2.micro
+   instances.
+   
+ {
+    "Version": "2012-10-17",
+    "Statement": [
+        		{
+            "Effect": "Allow",
+            "Action":  "ec2:*"				   
+            "Resource": "arn:aws:ec2:*:521937342151:instance/*",
+			"Condition":
+			{
+				"StringEquals":{"ec2:InstanceType":"t2.micro"}
+			}
+			
+			
+        }
+	}
+  
+   
+   
+14) Write a policy which allow to launch only t2.micro
+   instances only in mumbai region.
+ {
+    "Version": "2012-10-17",
+    "Statement": [
+        		{
+            "Effect": "Allow",
+            "Action":  "ec2:*"				   
+            "Resource": "arn:aws:ec2:ap-south-1:521937342151:instance/*",
+			"Condition":
+			{
+				"StringEquals":{"ec2:InstanceType":"t2.micro"}
+			}
+			
+			
+        }
+	}  
+   
+15) Write a policy which allow to stop/start/terminate 
+only t2.micro  instances.
+
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        		{
+            "Effect": "Allow",
+            "Action": [ "ec2:StopInstances",
+			"ec2:StartInstances",
+			"ec2:TerminateInstances"		
+			],			   
+            "Resource": "arn:aws:ec2:*:521937342151:instance/*",
+			"Condition":
+			{
+				"StringEquals":{"ec2:InstanceType":"t2.micro"}
+			}
+			
+			
+        }
+	}
+    
+
+16) Write a policy which will deny to  terminate
+"i-675489345" instance, which is located in mumbai 
+region 
+ 
+ {
+    "Version": "2012-10-17",
+    "Statement": [
+        		{
+            "Effect": "Deny",
+            "Action":  "ec2:TerminateInstances"				   
+            "Resource": "arn:aws:ec2:ap-south-1:521937342151:instance/i-675489345",
+	    }
+	}
+  

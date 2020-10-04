@@ -1,0 +1,187 @@
+1)snap shot vs AMI
+aNS:-The EBS snapshot contains all the data stored on the EBS volume at the time the EBS snapshot was created. ...
+An AMI image is a backup of an entire EC2 instance.
+Associated with an AMI image are EBS snapshots.
+2) How to increase EBS performance
+Ans:-Initialize your restored EBS volumes
+Confirm the workload demand, average queue length, and IOPS rate
+Make sure the size of your I/O operations aren't limiting provisioned IOPS
+Avoid unnecessary charges by reviewing your use of EBS snapshots
+Use Amazon CloudWatch to analyze and view EBS performance metrics
+
+3)How to access S3 from EC2
+Ans:-To connect to your S3 buckets from your EC2 instances, you need to:
+
+1.    Create and attach an AWS Identity and Access Management (IAM) profile role to the instance that grants access to Amazon S3.
+
+2.    Confirm that the S3 bucket policy doesn't have a policy denying access.
+
+3.    Confirm network connectivity between the EC2 instance and Amazon S3.
+
+4)Type of storage in AWS
+aNS:-Amazon Simple Storage Service (Amazon S3)
+Amazon Glacier.
+Amazon Elastic File System (Amazon EFS)
+Amazon Elastic Block Store (Amazon EBS)
+Amazon EC2 Instance Storage.
+AWS Storage Gateway.
+AWS Snowball.
+Amazon CloudFront.
+
+5)Diff between EFS & EBS
+Ans:-The main differences between EBS and EFS is that EBS is only accessible from a single EC2 instance in your particular AWS region, 
+while EFS allows you to mount the file system across multiple regions and instances. Finally, 
+Amazon S3 is an object store good at storing vast numbers of backups or user files
+
+6)Block storage vs object storage
+Ans:-With block storage, files are split into evenly sized blocks of data, 
+each with its own address but with no additional information (metadata) to provide more context for what that block of data is. ... Object storage, by contrast, 
+doesn't split files up into raw blocks of data.
+
+7)S3 and its storage classes
+Ans:-Amazon S3 offers a range of storage classes designed for different use cases. These include S3 Standard for general-purpose storage of frequently accessed data; 
+S3 Intelligent-Tiering for data with unknown or changing access patterns; 
+S3 Standard-Infrequent Access (S3 Standard-IA) and S3 One Zone-Infrequent Access (S3 One Zone-IA) for long-lived, 
+but less frequently accessed data; and Amazon S3 Glacier (S3 Glacier) 
+and Amazon S3 Glacier Deep Archive (S3 Glacier Deep Archive) for long-term archive and digital preservation. 
+Amazon S3 also offers capabilities to manage your data throughout its lifecycle. Once an S3 Lifecycle policy is set, 
+your data will automatically transfer to a different storage class without any changes to your application.
+
+8)Max size of object that can upload in S3
+Ans:-With the Amazon S3 Console, you can upload a single object up to 160 GB in size.
+
+9)What is MFA Delete
+Ans:-The MFA Delete only protects the deletion of the versioning of the files, when you try to delete the file it in facts deletes it from the bucket but keeps a version. The behavior is similar when deleting from AWS console, it deletes the file but does not allow to delete the version
+
+10)What is multiport upload
+Ans:-Multipart Upload allows you to upload a single object as a set of parts. After all parts of your object are uploaded, Amazon S3 then presents the data as a single object. With this feature you can create parallel uploads, pause and resume an object upload, and begin uploads before you know the total object size.
+
+11)Life cycle policies and how transition happens 
+Ans:-Lifecycle policies allow you to automatically review objects within your S3 Buckets and have them moved to Glacier or 
+have the objects deleted from S3. You may want to do this for security, legislative compliance, internal policy compliance, or general housekeeping
+
+Amazon S3 supports the following lifecycle transitions between storage classes using an S3 Lifecycle configuration. 
+You can transition from the following: The S3 Standard storage class to any other storage class. 
+Any storage class to the S3 Glacier or S3 Glacier Deep Archive storage classes.
+
+11) How to mount S3 bucket on EC2 Instance?
+
+Create an IAM instance profile that grants access to Amazon S3. Open the IAM console. ...
+Attach the IAM instance profile to the EC2 instance. Open the Amazon EC2 console. ...
+Validate permissions on your S3 bucket. ...
+Validate network connectivity from the EC2 instance to Amazon S3. ...
+Validate access to S3 buckets.
+
+12)Retrival time for glacier?
+Ans:-between 3 and 5 hours
+Standard retrieval usually takes between 3 and 5 hours to complete. Bulk retrieval is Amazon S3 Glacier's lowest-cost retrieval type. You can retrieve large amounts of data inexpensively. 
+Bulk retrieval usually completes within 5 and 12 hours
+
+13)Cross region Replecation?
+Ans:Amazon S3 now supports cross-region replication, a new feature that automatically replicates data across AWS regions. 
+With cross-region replication, every object uploaded to an S3 bucket is automatically replicated to a destination bucket in a different AWS region that you choose. 
+For example, you can use cross-region replication to provide lower-latency data access in different geographic regions. Cross-region replication can also help if you have a compliance requirement to store copies of data hundreds of miles apart. There is no additional charge for using cross-region replication. You pay Amazon S3’s usual charges for storage, requests, and inter-region data transfer for the replicated copy of data.
+
+Cross-region replication is available in the US Standard, US West (Oregon), US West (N. California), EU (Ireland), EU (Frankfurt), Asia Pacific (Tokyo), Asia Pacific (Singapore), Asia Pacific (Sydney), and South America (Sao Paulo) regions.
+
+14)How many type of loadbalancer available in AWS/
+Ans:-three types
+Elastic Load Balancing supports three types of load balancers: Application Load Balancers, Network Load Balancers, 
+and Classic Load Balancers. You can select a load balancer based on your application needs.
+
+15) Diff between ALB , CLB & NLB in AWS
+ALB — Layer 7, Flexible
+NLB — Layer 4, Static IPs
+CLB — Avoid, legacy
+
+Network Load Balancer — This is the distribution of traffic based on network variables, such as IP address and destination ports. It is layer 4 (TCP) and below and is not designed to take into consideration anything at the application layer such as content type, cookie data, custom headers, user location, or the application behavior. It is context-less, caring only about the network-layer information contained within the packets it is directing this way and that.
+This is a TCP Load Balancer only that does some NAT magic at the VPC level. It uses EIPs, so it has a static endpoint unlike ALB and CLBs (by default, contact support if this is a requirement for your CLB or ALB). Each Target can be on different ports.
+
+Application Load Balancer — This is the distribution of requests based on multiple variables, from the network layer to the application layer. It is context-aware and can direct requests based on any single variable as easily as it can a combination of variables. Applications are load balanced based on their peculiar behavior and not solely on server (operating system or virtualization layer) information.
+This is feature fulled L7 load balancer, HTTP and HTTPS listeners only. Provides the ability to route HTTP and HTTPS traffic based upon rules, host based or path based. Like an NLB, each Target can be on different ports. Even supports HTTP/2. Configurable range of health check status codes (CLB only supports 200 OK for HTTP health checks).
+The first difference is that the Application Load Balancer (as the name implies) works at the Application Layer (Layer 7 of the OSI model). The network load balancer works at layers 3 & 4 (network and transport layers). The network load balancer just forward requests whereas the application load balancer examines the contents of the HTTP request header to determine where to route the request. So, the application load balancer is performing content based routing.
+The other difference between the two is important because network load balancing cannot assure availability of the application. This is because it bases its decisions solely on network and TCP-layer variables and has no awareness of the application at all. Generally a network load balancer will determine “availability” based on the ability of a server to respond to ICMP ping, or to correctly complete the three-way TCP handshake. An application load balancer goes much deeper, and is capable of determining availability based on not only a successful HTTP GET of a particular page but also the verification that the content is as was expected based on the input parameters.
+This is also important to note when considering the deployment of multiple applications on the same host sharing IP addresses (virtual hosts in old school speak). A network load balancer will not differentiate between Application A and Application B when checking availability (indeed it cannot unless ports are different) but an application load balancer will differentiate between the two applications by examining the application layer data available to it. This difference means that a network load balancer may end up sending requests to an application that has crashed or is offline, but an application load balancer will never make that same mistake.
+
+16)Main component of Load Balancer
+Ans:-Elastic Load Balancing consists of two components: the load balancers and the controller service. The load balancers monitor the traffic and handle requests that come in through the Internet.
+
+17)what is a target group and why it is necessary to make target group
+
+ANS:-A target group tells a load balancer where to direct traffic to : EC2 instances, fixed IP addresses; or AWS Lambda functions, amongst others. When creating a load balancer, you create one or more listeners and configure listener rules to direct the traffic to one target group.
+Each target group is used to route requests to one or more registered targets. When you create each listener rule, you specify a target group and conditions. When a rule condition is met, traffic is forwarded to the corresponding target group.
+
+18)What is listener rule?
+The rules that you define for your listener determine how the load balancer routes requests to the targets in one or more target groups. Each rule consists of a priority, one or more actions, and one or more conditions. For more information, see Listener rules.
+
+19)By default Loadbalancer forward traffic to which port
+Ans:-port 80
+By default your load balancer will have a rule to forward incoming traffic on port 80 to port 80 on your EC2 instances.
+
+20) How ELB find unhealty EC2 Instance
+Ans:-Amazon EC2 Auto Scaling is able to automatically determine the health status of an instance using Amazon EC2 status checks and Elastic Load Balancing (ELB) health checks. All scaling actions of an Amazon EC2 Auto Scaling group are logged in Activity History on the Amazon EC2 console.
+
+21) when to use ALB & when to use NLB realtime example
+
+An ALB (Application Load Balancer) understands HTTP. If you need to do HTTP-based routing (e.g., routing to different targets depending on the request path) you need to use an ALB.
+
+Unique features of ALBs include:
+
+HTTP path-based routing
+HTTP header-based routing
+Redirects
+Lambda functions as targets
+An NLB (Network Load Balancer) operates at the transport level (TCP/UDP). NLBs are more performant than ALBs because they don't need to parse HTTP messages.
+
+NLBs support some unique features too:
+Static IP
+Elastic IP addresses
+Preserving the source IP
+
+22) How many subnet can select from one AZ
+Ans:-You can create a VPC that spans multiple Availability Zones. After creating a VPC, you can add one or more subnets in each Availability Zone. Each subnet must reside exclusively within one Availability Zone and cannot span zones.
+
+23) Componets of Auto scaling
+Ans:-Auto Scaling Components
+Groups. They are the logical groups which contain the collection of EC2 instances which are having similar characteristics for scaling and management purpose. ...
+Launch Configuration. It is a template used by the auto scaling group to launch EC2 instances. ...
+Scaling Plan.
+
+24) what is launch configuration?
+Ans:-A launch configuration is a template that an EC2 Auto Scaling group uses to launch EC2 instances. When you create a launch configuration, you specify information for the instances such as the ID of the Amazon Machine Image (AMI), the instance type, a key pair, one or more security groups, and a block device mapping.
+
+25)Type of scaling policy and how it work?
+Ans:-Scaling policy types
+Step scaling—Increase or decrease the current capacity of the group based on a set of scaling adjustments, known as step adjustments, that vary based on the size of the alarm breach. Simple scaling—Increase or decrease the current capacity of the group based on a single scaling adjustment.
+
+26)How auto scaling does rebalancing of EC2 across AZ's ?
+Ans:-When one Availability Zone becomes unhealthy or unavailable, Amazon EC2 Auto Scaling launches new instances in an unaffected zone. When the unhealthy Availability Zone returns to a healthy state, Amazon EC2 Auto Scaling automatically redistributes the application instances evenly across all of the zones for your Auto Scaling group. Amazon EC2 Auto Scaling does this by attempting to launch new instances in the Availability Zone with the fewest instances. 
+If the attempt fails, however, Amazon EC2 Auto Scaling attempts to launch in other Availability Zones until it succeeds.
+
+27)how to detach instance from auto scaling group so that it will not launch a new instance?
+Ans:-On the navigation pane, under AUTO SCALING, choose Auto Scaling Groups.
+Select the check box next to your Auto Scaling group. ...
+On the Instance management tab, in Instances, select an instance and choose Actions, Detach.
+
+28) How does auto scaling define unhealthy status of an EC2 Instance ?
+Ans:-Amazon EC2 Status Checks
+If the instance is in any state other than running or if the system status is impaired , Amazon EC2 Auto Scaling considers the instance to be unhealthy and launches a replacement instance. This includes when the instance has any of the following states: stopping. stopped. terminating.
+
+29) What is health check period?
+Ans:-By default, the health check grace period is 300 seconds when you create an Auto Scaling group from the AWS Management Console. Its default value is 0 seconds when you create an Auto Scaling group using the AWS CLI or an AWS SDK.
+
+30)How to merge auto scaling group?
+Ans:-To merge separate single-zone Auto Scaling groups into a single group spanning multiple Availability Zones, rezone one of the single-zone groups into a multi-zone group. Then, delete the other groups. This works for groups with or without a load balancer, as long as the new multi-zone group is in one of the same Availability Zones as the original single-zone groups.
+
+The following examples assume that you have two identical groups in two different Availability Zones, us-west-2a and us-west-2c. These two groups share the following specifications:
+
+Minimum size = 2
+
+Maximum size = 5
+
+Desired capacity = 3
+
+31) What is a standby state in in autoscaling ?
+Standby State
+You can now move an instance from the InService state to the Standby state, and back again. When an instance is standing by, it is still managed by the Auto Scaling Group but it is removed from service until you set it back to the InService state.
+
